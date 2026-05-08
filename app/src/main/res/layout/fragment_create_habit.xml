@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#717171"
     tools:context=".view.CreateHabitFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="415dp" />
-
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="409dp"
-            android:layout_height="729dp"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:gravity="center"
             android:orientation="vertical"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="1dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="1dp">
 
             <TextView
                 android:id="@+id/txtAddHabit"
@@ -40,8 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
+                android:hint="Habit Name*"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/txtDescription"
@@ -49,22 +47,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
+                android:hint="Short Description *"
                 android:inputType="text"
-                android:text="Name" />
+                android:textColorHint="#999999" />
 
             <EditText
                 android:id="@+id/txtGoal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
+                android:hint="Goal *"
+                android:inputType="text" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:backgroundTint="#838383"
                 android:text="How Many To Complete this task?" />
 
             <EditText
@@ -72,8 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
+                android:hint="Unit *"
+                android:inputType="text" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -88,5 +88,17 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnCreateHabit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            android:text="Create Habit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

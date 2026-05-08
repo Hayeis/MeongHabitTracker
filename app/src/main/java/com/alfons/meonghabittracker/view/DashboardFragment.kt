@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alfons.meonghabittracker.databinding.FragmentDashboardBinding
 import com.alfons.meonghabittracker.viewmodel.ListViewModel
@@ -37,6 +38,12 @@ class DashboardFragment : Fragment() {
         binding.recyclerView.adapter = habitListAdapter
 
         observeViewModel()
+
+        binding.btnFAB.setOnClickListener {
+            // Pastikan nama class Directions-nya sesuai dengan nama fragment ini
+            val action = DashboardFragmentDirections.actionCreateHabitFragment()
+            it.findNavController().navigate(action)
+        }
 
     }
 

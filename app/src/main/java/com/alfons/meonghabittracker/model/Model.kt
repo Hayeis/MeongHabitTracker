@@ -5,6 +5,7 @@ data class Habit(
     var name: String?,
     var description: String?,
     var goal: Int?,
+    var currentProgress: Int = 0,
     var unit: String?,
     var icon: String?
 )

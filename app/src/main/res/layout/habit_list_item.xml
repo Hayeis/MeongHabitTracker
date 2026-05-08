@@ -77,7 +77,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtProgress" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/btnPlus"
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_marginEnd="20dp"
@@ -90,7 +90,7 @@
                 app:srcCompat="@drawable/baseline_add_24" />
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/btnMinus"
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_marginEnd="10dp"
@@ -98,7 +98,7 @@
                 android:backgroundTint="#6750a4"
                 android:scaleType="fitStart"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                app:layout_constraintEnd_toStartOf="@+id/btnPlus"
                 app:layout_constraintTop_toBottomOf="@+id/progressBar"
                 app:srcCompat="@drawable/baseline_horizontal_rule_24" />
 
