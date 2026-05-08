@@ -1,4 +1,4 @@
-package com.alfons.meonghabittracker
+package com.alfons.meonghabittracker.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

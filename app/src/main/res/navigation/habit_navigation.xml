@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.alfons.meonghabittracker.LoginFragment"
+        android:name="com.alfons.meonghabittracker.view.LoginFragment"
         android:label="Login Screen"
         tools:layout="@layout/fragment_login" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.alfons.meonghabittracker.DashboardFragment"
+        android:name="com.alfons.meonghabittracker.view.DashboardFragment"
         android:label="Dashboard Screen"
         tools:layout="@layout/fragment_dashboard" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/createHabitFragment"
-        android:name="com.alfons.meonghabittracker.CreateHabitFragment"
+        android:name="com.alfons.meonghabittracker.view.CreateHabitFragment"
         android:label="Habit Screen"
         tools:layout="@layout/fragment_create_habit" >
         <action
