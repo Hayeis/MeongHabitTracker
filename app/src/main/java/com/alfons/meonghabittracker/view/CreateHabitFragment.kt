@@ -39,7 +39,27 @@ class CreateHabitFragment : Fragment() {
             val unit = binding.txtUnit.text.toString()
             val selectedIcon = binding.spinIcon.selectedItem.toString()
 
-            val newHabit = Habit("99", name, desc, goal, 0, unit, selectedIcon)
+            var namaAsliIcon = ""
+            when (selectedIcon) {
+                "Koding" -> {
+                    namaAsliIcon = "baseline_code_24"
+                }
+                "Fitness" -> {
+                    namaAsliIcon = "baseline_directions_run_24"
+                }
+                "Garis" -> {
+                    namaAsliIcon = "baseline_horizontal_rule_24"
+                }
+                "Buku" -> {
+                    namaAsliIcon = "baseline_menu_book_24"
+                }
+                "Air" -> {
+                    namaAsliIcon = "baseline_water_drop_24"
+                }
+            }
+
+            val newId = (GlobalData.habits.size + 1).toString()
+            val newHabit = Habit(newId, name, desc, goal, 0, unit, namaAsliIcon)
 
             GlobalData.habits.add(newHabit)
 
