@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.alfons.meonghabittracker.R
@@ -26,14 +27,19 @@ class CreateHabitFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val iconList = listOf("Koding", "Fitness", "Garis", "Buku", "Air")
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, iconList)
+        binding.spinIcon.adapter = adapter
         //tes
         binding.btnCreateHabit.setOnClickListener {
             val name = binding.txtHabitName.text.toString()
             val desc = binding.txtDescription.text.toString()
             val goal = binding.txtGoal.text.toString().toIntOrNull() ?: 0
             val unit = binding.txtUnit.text.toString()
+            val selectedIcon = binding.spinIcon.selectedItem.toString()
 
-            val newHabit = Habit("99", name, desc, goal, 0, unit, "ic_default")
+            val newHabit = Habit("99", name, desc, goal, 0, unit, selectedIcon)
 
             GlobalData.habits.add(newHabit)
 
