@@ -26,6 +26,7 @@ class CreateHabitFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //tes
         binding.btnCreateHabit.setOnClickListener {
             val name = binding.txtHabitName.text.toString()
             val desc = binding.txtDescription.text.toString()
