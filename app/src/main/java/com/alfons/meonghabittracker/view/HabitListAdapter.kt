@@ -41,6 +41,13 @@ class HabitListAdapter (val habitList:ArrayList<Habit>)
                 holder.binding.txtProgressnya.text = "Completed"
                 holder.binding.txtProgressnya.setTextColor(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_green_dark))
                 holder.binding.progressBar.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_green_dark))
+                holder.binding.btnPlus.isEnabled = false
+                holder.binding.btnPlus.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(holder.itemView.context, android.R.color.darker_gray)
+                )
+                holder.binding.cardView.setCardBackgroundColor(
+                    ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_green_light))
+                )
             }
 
             //Untuk menampilkan ICON
@@ -67,6 +74,10 @@ class HabitListAdapter (val habitList:ArrayList<Habit>)
             }
 
         holder.binding.btnMinus.setOnClickListener {
+            holder.binding.btnPlus.isEnabled = true
+            holder.binding.cardView.setCardBackgroundColor(
+                ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.white))
+            )
             if (habit.currentProgress != 0) {
                 habit.currentProgress -= 1
 
