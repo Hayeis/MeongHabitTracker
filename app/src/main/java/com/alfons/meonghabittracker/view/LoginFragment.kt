@@ -28,9 +28,8 @@ class LoginFragment : Fragment() {
             val username = binding.txtUsername.text.toString()
             val password = binding.txtPassword.text.toString()
 
-            if(username == "student" && password == "123"){
+            if(username == "student" && password == "123" || username == "user" && password == "123"){
                 val action = LoginFragmentDirections.actionDashboardFragment()
-                //Navigation.findNavController(it).navigate(action)
                 it.findNavController().navigate(action)
             }
             else{

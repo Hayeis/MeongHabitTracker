@@ -30,27 +30,12 @@ class HabitListAdapter (val habitList:ArrayList<Habit>)
             val habit = habitList[position]
             val goal = habit.goal ?: 1
 
-
-            holder.binding.txtJudulHabit.text = habitList[position].name
-            holder.binding.txtNote.text = habitList[position].description
+            holder.binding.txtJudulHabit.text = habit.name
+            holder.binding.txtNote.text = habit.description
             holder.binding.txtTotalProgress.text = "${habit.currentProgress} / $goal ${habit.unit}"
             holder.binding.progressBar.max = goal
             holder.binding.progressBar.progress = habit.currentProgress
 
-            if (habit.currentProgress >= goal) {
-                holder.binding.txtProgressnya.text = "Completed"
-                holder.binding.txtProgressnya.setTextColor(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_green_dark))
-                holder.binding.progressBar.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_green_dark))
-                holder.binding.btnPlus.isEnabled = false
-                holder.binding.btnPlus.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(holder.itemView.context, android.R.color.darker_gray)
-                )
-                holder.binding.cardView.setCardBackgroundColor(
-                    ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_green_light))
-                )
-            }
-
-            //Untuk menampilkan ICON
             val iconname = habitList[position].icon ?: "ic_default"
             val resID = holder.itemView.context.resources.getIdentifier(
                 iconname, "drawable", holder.itemView.context.packageName
@@ -63,28 +48,36 @@ class HabitListAdapter (val habitList:ArrayList<Habit>)
                 holder.binding.imgIcon.setImageResource(android.R.drawable.ic_menu_help)
             }
 
+            if (habit.currentProgress >= goal){
+                holder.binding.txtProgressnya.text = "Completed"
+                holder.binding.txtProgressnya.setTextColor(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_green_dark))
+                holder.binding.progressBar.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_green_dark))
+                holder.binding.btnPlus.isEnabled = false
+                holder.binding.cardView.setCardBackgroundColor(
+                    ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_green_light))
+                )
+            } else{
+                holder.binding.txtProgressnya.text = "In Progress"
+                holder.binding.txtProgressnya.setTextColor(ContextCompat.getColor(holder.itemView.context, android.R.color.black))
+                holder.binding.progressBar.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_blue_light))
+                holder.binding.btnPlus.isEnabled = true
+                holder.binding.cardView.setCardBackgroundColor(
+                    ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.white))
+                )
+            }
+
             holder.binding.btnPlus.setOnClickListener {
                 if (habit.currentProgress < goal) {
                     habit.currentProgress += 1
-                    notifyItemChanged(position)
-                } else {
-                    Toast.makeText(holder.itemView.context, "Goal sudah tercapai!", Toast.LENGTH_SHORT).show()
-
                 }
+                notifyItemChanged(position)
             }
 
         holder.binding.btnMinus.setOnClickListener {
-            holder.binding.btnPlus.isEnabled = true
-            holder.binding.cardView.setCardBackgroundColor(
-                ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.context, android.R.color.white))
-            )
-            if (habit.currentProgress != 0) {
+            if (habit.currentProgress > 0) {
                 habit.currentProgress -= 1
-
-                notifyItemChanged(position)
-            } else {
-                Toast.makeText(holder.itemView.context, "Progress tidak dapat dikurangi karena masih belum ada progress!", Toast.LENGTH_SHORT).show()
             }
+            notifyItemChanged(position)
         }
 
     }
@@ -97,7 +90,6 @@ class HabitListAdapter (val habitList:ArrayList<Habit>)
         habitList.addAll(newHabitList)
         notifyDataSetChanged()
     }
-
 
     class HabitViewHolder(var binding: HabitListItemBinding): RecyclerView.ViewHolder(binding.root)
 }
