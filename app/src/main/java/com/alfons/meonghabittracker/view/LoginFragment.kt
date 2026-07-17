@@ -6,8 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.alfons.meonghabittracker.databinding.FragmentLoginBinding
+import com.alfons.meonghabittracker.model.HabitDatabase
+import com.alfons.meonghabittracker.util.SessionManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -24,19 +30,39 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.btnLogin.setOnClickListener {
             val username = binding.txtUsername.text.toString()
             val password = binding.txtPassword.text.toString()
 
-            if(username == "student" && password == "123" || username == "user" && password == "123"){
-                val action = LoginFragmentDirections.actionDashboardFragment()
-                it.findNavController().navigate(action)
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Username & Password tidak boleh kosong!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
             }
-            else{
-                binding.txtPassword.error= "Username atau Password salah!"
-                Toast.makeText(requireContext(), "Login Gagal!", Toast.LENGTH_SHORT).show()
+
+            CoroutineScope(Dispatchers.Main).launch {
+                val db = HabitDatabase.getInstance(requireContext())
+                val user = db.userDao().login(username, password)
+
+                withContext(Dispatchers.Main) {
+                    if (user != null) {
+                        SessionManager.saveUserId(requireContext(), user.userId)
+
+                        val action = LoginFragmentDirections.actionDashboardFragment()
+                        findNavController().navigate(action)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Username/Password salah!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
         }
     }
-
 }

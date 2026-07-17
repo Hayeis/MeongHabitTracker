@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 @Database(entities = [Habit::class, User::class], version = 1)
 abstract class HabitDatabase : RoomDatabase() {
     abstract fun habitDao():HabitDao
+    abstract fun userDao(): UserDao
 
     companion object {
         @Volatile
@@ -65,7 +66,7 @@ abstract class HabitDatabase : RoomDatabase() {
                     }
                 }
             }).build()
-        private fun getInstance(context: Context) = instance ?: buildDatabase(context)
+        public fun getInstance(context: Context) = instance ?: buildDatabase(context)
 
         operator fun invoke(context: Context) {
             if (instance != null) {
