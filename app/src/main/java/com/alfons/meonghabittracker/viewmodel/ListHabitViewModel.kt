@@ -3,7 +3,6 @@ package com.alfons.meonghabittracker.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.alfons.meonghabittracker.model.Habit
 import com.alfons.meonghabittracker.model.HabitDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -33,6 +32,13 @@ class ListHabitViewModel(application: Application) :
 
             habitLD.postValue(db.habitDao().selectAllHabit())
             loadingLD.postValue(false)
+        }
+    }
+
+    fun updateHabit(habit: Habit) {
+        launch {
+            val db = HabitDatabase.getInstance(getApplication())
+            db.habitDao().updateHabit(habit)
         }
     }
 

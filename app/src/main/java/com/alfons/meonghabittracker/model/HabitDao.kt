@@ -4,19 +4,18 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface HabitDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg habit: Habit)
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(user: User): Long
 
     @Query("SELECT * FROM habit")
     fun selectAllHabit(): List<Habit>
 
-    @Query("SELECT * FROM habit WHERE id = :userId")
-    fun selectHabit(userId: Int): Habit
+    @Update
+    fun updateHabit(habit: Habit)
 
     @Delete
     fun deleteHabit(habit:Habit)

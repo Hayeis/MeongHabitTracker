@@ -10,7 +10,7 @@ import com.alfons.meonghabittracker.databinding.HabitListItemBinding
 import com.alfons.meonghabittracker.model.Habit
 import androidx.navigation.Navigation
 
-class HabitListAdapter (val habitList:ArrayList<Habit>)
+class HabitListAdapter (val habitList:ArrayList<Habit>, val adapterOnClick: (Habit) -> Unit)
     : RecyclerView.Adapter<HabitListAdapter.HabitViewHolder>(){
 
     override fun onCreateViewHolder(
@@ -68,15 +68,17 @@ class HabitListAdapter (val habitList:ArrayList<Habit>)
             holder.binding.btnPlus.setOnClickListener {
                 if (habit.currentProgress < goal) {
                     habit.currentProgress += 1
+                    adapterOnClick(habitList[position])
+                    notifyItemChanged(position)
                 }
-                notifyItemChanged(position)
             }
 
         holder.binding.btnMinus.setOnClickListener {
             if (habit.currentProgress > 0) {
                 habit.currentProgress -= 1
+                adapterOnClick(habitList[position])
+                notifyItemChanged(position)
             }
-            notifyItemChanged(position)
         }
 
     }

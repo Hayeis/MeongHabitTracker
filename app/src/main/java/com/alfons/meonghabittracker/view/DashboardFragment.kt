@@ -9,13 +9,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alfons.meonghabittracker.R
 import com.alfons.meonghabittracker.databinding.FragmentDashboardBinding
+import com.alfons.meonghabittracker.util.SessionManager
 import com.alfons.meonghabittracker.viewmodel.ListHabitViewModel
 
 class DashboardFragment : Fragment() {
     private lateinit var viewModel: ListHabitViewModel
-    private val habitListAdapter  = HabitListAdapter(arrayListOf())
+    private val habitListAdapter  = HabitListAdapter(arrayListOf(), { habit -> viewModel.updateHabit(habit) })
     private lateinit var binding: FragmentDashboardBinding
 
     override fun onCreateView(
@@ -29,6 +32,12 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val currentUserId = SessionManager.getUserId(requireContext())
+        if (currentUserId == -1) {
+            findNavController().navigate(R.id.action_dashboardFragment_to_loginFragment)
+            return
+        }
 
 
         viewModel = ViewModelProvider(this).get(ListHabitViewModel::class.java)

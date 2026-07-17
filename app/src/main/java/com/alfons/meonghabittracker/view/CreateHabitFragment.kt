@@ -22,7 +22,6 @@ import com.alfons.meonghabittracker.viewmodel.DetailHabitViewModel
 
 class CreateHabitFragment : Fragment() {
     private lateinit var viewModel: DetailHabitViewModel
-    private val habitListAdapter = HabitListAdapter(arrayListOf())
     private lateinit var binding: FragmentCreateHabitBinding
 
     override fun onCreateView(
@@ -80,8 +79,7 @@ class CreateHabitFragment : Fragment() {
                     binding . txtGoal . text . toString ().toIntOrNull() ?: 0,
                     0,
                     binding.txtUnit.text.toString(),
-                    namaAsliIcon,
-                    ownerId = userId
+                    namaAsliIcon
                 )
                 val list = listOf(habit)
                 viewModel.addHabit(list)
