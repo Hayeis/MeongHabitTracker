@@ -2,6 +2,7 @@ package com.alfons.meonghabittracker.view
 
 import android.R.id.selectedIcon
 import android.os.Bundle
+import android.se.omapi.Session
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.alfons.meonghabittracker.R
 import com.alfons.meonghabittracker.databinding.FragmentCreateHabitBinding
 import com.alfons.meonghabittracker.databinding.FragmentDashboardBinding
 import com.alfons.meonghabittracker.model.Habit
+import com.alfons.meonghabittracker.util.SessionManager
 import com.alfons.meonghabittracker.viewmodel.DetailHabitViewModel
 
 class CreateHabitFragment : Fragment() {
@@ -66,23 +68,30 @@ class CreateHabitFragment : Fragment() {
             }
         }
 
+        val userId = SessionManager.getUserId(requireContext())
+
         binding.btnCreateHabit.setOnClickListener {
-            var habit = Habit(
-                0,
-                binding.txtHabitName.text.toString(),
-                binding . txtDescription . text . toString (),
-                binding . txtGoal . text . toString ().toIntOrNull() ?: 0,
-                0,
-                binding.txtUnit.text.toString(),
-                namaAsliIcon,
-                ownerId = ownerId
-            )
 
-            val list = listOf(habit)
-            viewModel.addHabit(list)
+            if (userId != -1){
+                val habit = Habit(
+                    0,
+                    binding.txtHabitName.text.toString(),
+                    binding . txtDescription . text . toString (),
+                    binding . txtGoal . text . toString ().toIntOrNull() ?: 0,
+                    0,
+                    binding.txtUnit.text.toString(),
+                    namaAsliIcon,
+                    ownerId = userId
+                )
+                val list = listOf(habit)
+                viewModel.addHabit(list)
 
-            Toast.makeText(context, "Habit Baru Ditambahkan!", Toast.LENGTH_SHORT).show()
-            it.findNavController().popBackStack()
+                Toast.makeText(context, "Habit Baru Ditambahkan!", Toast.LENGTH_SHORT).show()
+                it.findNavController().popBackStack()
+            } else {
+            Toast.makeText(context, "Tidak Berhasil! User tidak ditemukan", Toast.LENGTH_SHORT).show()
+        }
+
         }
     }
 }

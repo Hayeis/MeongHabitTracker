@@ -40,7 +40,6 @@ class DashboardFragment : Fragment() {
         observeViewModel()
 
         binding.btnFAB.setOnClickListener {
-            // Pastikan nama class Directions-nya sesuai dengan nama fragment ini
             val action = DashboardFragmentDirections.actionCreateHabitFragment()
             it.findNavController().navigate(action)
         }

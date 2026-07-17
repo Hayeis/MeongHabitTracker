@@ -13,7 +13,7 @@ object SessionManager {
 
     fun getUserId(context: Context): Int {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        return prefs.getInt(KEY_USER_ID, -1)   // -1 = belum login
+        return prefs.getInt(KEY_USER_ID, -1)
     }
 
     fun clearSession(context: Context) {

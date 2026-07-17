@@ -9,6 +9,8 @@ import androidx.room.Query
 interface HabitDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg habit: Habit)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertUser(user: User): Long
 
     @Query("SELECT * FROM habit")
     fun selectAllHabit(): List<Habit>
