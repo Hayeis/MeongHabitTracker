@@ -2,6 +2,7 @@ package com.alfons.meonghabittracker.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.alfons.meonghabittracker.model.Habit
 import com.alfons.meonghabittracker.model.HabitDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -12,6 +13,7 @@ import kotlin.coroutines.CoroutineContext
 
 class DetailHabitViewModel (application: Application):
     AndroidViewModel(application), CoroutineScope{
+    val habit = MutableLiveData<Habit>(Habit(0,"", "", 0, 0, "", ""))
     private val job = Job()
 
     fun addHabit(list:List<Habit>){
@@ -20,6 +22,13 @@ class DetailHabitViewModel (application: Application):
                 getApplication()
             )
             db.habitDao().insertAll(*list.toTypedArray())
+        }
+    }
+
+    fun updateHabit(habit: Habit) {
+        launch {
+            val db = HabitDatabase(getApplication())
+            db.habitDao().updateHabit(habit)
         }
     }
 

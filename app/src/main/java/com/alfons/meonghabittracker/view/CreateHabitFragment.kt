@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alfons.meonghabittracker.R
 import com.alfons.meonghabittracker.databinding.FragmentCreateHabitBinding
@@ -23,6 +25,8 @@ import com.alfons.meonghabittracker.viewmodel.DetailHabitViewModel
 class CreateHabitFragment : Fragment() {
     private lateinit var viewModel: DetailHabitViewModel
     private lateinit var binding: FragmentCreateHabitBinding
+    private val args: CreateHabitFragmentArgs by navArgs()
+    private var existingHabit: Habit? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,59 +41,40 @@ class CreateHabitFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[DetailHabitViewModel::class.java]
 
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         val iconList = listOf("Koding", "Fitness", "Garis", "Buku", "Air")
-        val adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, iconList)
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, iconList)
         binding.spinIcon.adapter = adapter
 
-        val selectedIcon = binding.spinIcon.selectedItem.toString()
-        var namaAsliIcon = ""
-        when (selectedIcon) {
-            "Koding" -> {
-                namaAsliIcon = "baseline_code_24"
-            }
-
-            "Fitness" -> {
-                namaAsliIcon = "baseline_directions_run_24"
-            }
-
-            "Garis" -> {
-                namaAsliIcon = "baseline_horizontal_rule_24"
-            }
-
-            "Buku" -> {
-                namaAsliIcon = "baseline_menu_book_24"
-            }
-
-            "Air" -> {
-                namaAsliIcon = "baseline_water_drop_24"
-            }
+        args.habit?.let {
+            viewModel.habit.value = it
+            binding.btnCreateHabit.text = "Update"
+            existingHabit = it
         }
-
-        val userId = SessionManager.getUserId(requireContext())
 
         binding.btnCreateHabit.setOnClickListener {
+            val updatedHabit = viewModel.habit.value ?: return@setOnClickListener
 
-            if (userId != -1){
-                val habit = Habit(
-                    0,
-                    binding.txtHabitName.text.toString(),
-                    binding . txtDescription . text . toString (),
-                    binding . txtGoal . text . toString ().toIntOrNull() ?: 0,
-                    0,
-                    binding.txtUnit.text.toString(),
-                    namaAsliIcon
-                )
-                val list = listOf(habit)
-                viewModel.addHabit(list)
+            val selectedIcon = binding.spinIcon.selectedItem.toString()
+            updatedHabit.icon = when (selectedIcon) {
+                "Koding" -> "baseline_code_24"
+                "Fitness" -> "baseline_directions_run_24"
+                "Garis" -> "baseline_horizontal_rule_24"
+                "Buku" -> "baseline_menu_book_24"
+                "Air" -> "baseline_water_drop_24"
+                else -> "baseline_code_24"
+            }
 
-                Toast.makeText(context, "Habit Baru Ditambahkan!", Toast.LENGTH_SHORT).show()
-                it.findNavController().popBackStack()
+            if (existingHabit != null) {
+                viewModel.updateHabit(updatedHabit)
+                Toast.makeText(context, "Habit Berhasil Diupdate!", Toast.LENGTH_SHORT).show()
             } else {
-            Toast.makeText(context, "Tidak Berhasil! User tidak ditemukan", Toast.LENGTH_SHORT).show()
-        }
-
+                viewModel.addHabit(listOf(updatedHabit))
+                Toast.makeText(context, "Habit Baru Ditambahkan!", Toast.LENGTH_SHORT).show()
+            }
+            findNavController().popBackStack()
         }
     }
 }

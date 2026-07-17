@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alfons.meonghabittracker.databinding.HabitListItemBinding
 import com.alfons.meonghabittracker.model.Habit
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 
 class HabitListAdapter (val habitList:ArrayList<Habit>, val adapterOnClick: (Habit) -> Unit)
     : RecyclerView.Adapter<HabitListAdapter.HabitViewHolder>(){
@@ -81,6 +82,10 @@ class HabitListAdapter (val habitList:ArrayList<Habit>, val adapterOnClick: (Hab
             }
         }
 
+            holder.binding.txtJudulHabit.setOnClickListener {
+                val action = DashboardFragmentDirections.actionCreateHabitFragment(habit = habit)
+                it.findNavController().navigate(action)
+            }
     }
     override fun getItemCount(): Int {
         return habitList.size

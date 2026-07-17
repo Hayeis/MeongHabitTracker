@@ -1,105 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:backgroundTint="#717171"
-    tools:context=".view.CreateHabitFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="viewModel"
+            type="com.alfons.meonghabittracker.viewmodel.DetailHabitViewModel" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:backgroundTint="#717171"
+        tools:context=".view.CreateHabitFragment">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingEnd="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="1dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/txtAddHabit"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:text="Add a New Habit"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <EditText
-                android:id="@+id/txtHabitName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:hint="Habit Name*"
-                android:inputType="text" />
+                <TextView
+                    android:id="@+id/txtAddHabit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Add a New Habit"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/txtDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:hint="Short Description *"
-                android:inputType="text"
-                android:textColorHint="#999999" />
+                <EditText
+                    android:id="@+id/txtHabitName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Habit Name*"
+                    android:text="@={viewModel.habit.name}" />
 
-            <EditText
-                android:id="@+id/txtGoal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Goal *"
-                android:inputType="text" />
+                <EditText
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="Short Description *"
+                    android:text="@={viewModel.habit.description}" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:backgroundTint="#838383"
-                android:text="How Many To Complete this task?" />
+                <EditText
+                    android:id="@+id/txtGoal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Goal *"
+                    android:inputType="number"
+                    android:text="@={`` + viewModel.habit.goal}" />
 
-            <EditText
-                android:id="@+id/txtUnit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Unit *"
-                android:inputType="text" />
+                <EditText
+                    android:id="@+id/txtUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Unit *"
+                    android:text="@={viewModel.habit.unit}" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="e.g., glasses, minutes, pages, etc." />
+                <Spinner
+                    android:id="@+id/spinIcon"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp" />
 
-            <Spinner
-                android:id="@+id/spinIcon"
-                android:layout_width="match_parent"
-                android:layout_height="55dp" />
-
-            <Button
-                android:id="@+id/btnCreateHabit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="29dp"
-                android:layout_marginEnd="16dp"
-                android:paddingStart="10dp"
-                android:text="Create Habit" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+                <Button
+                    android:id="@+id/btnCreateHabit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29dp"
+                    android:text="Create Habit" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

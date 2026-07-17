@@ -1,9 +1,12 @@
 package com.alfons.meonghabittracker.model
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity
+@Parcelize
 data class Habit(
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0,
@@ -19,7 +22,7 @@ data class Habit(
     var unit:String,
     @ColumnInfo(name="icon")
     var icon:String
-)
+): Parcelable
 
 @Entity
 data class User(
