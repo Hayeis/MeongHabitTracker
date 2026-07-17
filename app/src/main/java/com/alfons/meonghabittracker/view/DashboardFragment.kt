@@ -11,10 +11,10 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alfons.meonghabittracker.databinding.FragmentDashboardBinding
-import com.alfons.meonghabittracker.viewmodel.ListViewModel
+import com.alfons.meonghabittracker.viewmodel.ListHabitViewModel
 
 class DashboardFragment : Fragment() {
-    private lateinit var viewModel: ListViewModel
+    private lateinit var viewModel: ListHabitViewModel
     private val habitListAdapter  = HabitListAdapter(arrayListOf())
     private lateinit var binding: FragmentDashboardBinding
 
@@ -31,7 +31,7 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ListHabitViewModel::class.java)
         viewModel.refresh()
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
@@ -48,7 +48,7 @@ class DashboardFragment : Fragment() {
     }
 
     fun observeViewModel() {
-        viewModel.habitsLD.observe(viewLifecycleOwner, Observer {
+        viewModel.habitLD.observe(viewLifecycleOwner, Observer {
             habitListAdapter.updateHabitList(it)
         })
         viewModel.habitLoadErrorLD.observe(viewLifecycleOwner, Observer {
@@ -68,8 +68,6 @@ class DashboardFragment : Fragment() {
                 binding.progressLoad.visibility = View.GONE
             }
         })
-
-
     }
 
 

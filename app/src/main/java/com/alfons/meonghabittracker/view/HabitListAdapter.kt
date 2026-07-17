@@ -13,7 +13,6 @@ import androidx.navigation.Navigation
 class HabitListAdapter (val habitList:ArrayList<Habit>)
     : RecyclerView.Adapter<HabitListAdapter.HabitViewHolder>(){
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -85,7 +84,7 @@ class HabitListAdapter (val habitList:ArrayList<Habit>)
         return habitList.size
     }
 
-    fun updateHabitList(newHabitList: ArrayList<Habit>) {
+    fun updateHabitList(newHabitList: List<Habit>) {
         habitList.clear()
         habitList.addAll(newHabitList)
         notifyDataSetChanged()

@@ -37,4 +37,6 @@ data class Habit(
     var unit:String,
     @ColumnInfo(name="icon")
     var icon:String,
+    @ColumnInfo(name = "ownerId")
+    var ownerId: Int
 )
